@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="brief7.css">
+</head>
+<body>
+    <form  id="form">
+        <h1>Inscrivez-Vous</h1>
+          <div class="form-control">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" placeholder="Votre Nom" name="nom" />
+            <span class="error"><i class="fa-solid fa-exclamation"></i></span>
+            <div></div>
+            <small></small>
+          </div>
+          <div class="form-control">
+            <label for="marque">Marque</label>
+            <input type="text" id="marque" placeholder="Votre Prenom" name="prenom" />
+            <span class="error"> <i class="fa-solid fa-exclamation"></i></span>
+            <div></div>
+            <small></small>
+          </div>
+          <div class="form-control">
+            <label for="prix">Prix</label>
+            <input type="number" id="prix" placeholder="Votre Telephone" name="tele" />
+            <span class="error"><i class="fa-solid fa-exclamation"></i></span>
+            <div></div>
+            <small></small>
+          </div>
+          <div class="form-control">
+            <label for="date">Date </label>
+            <input type="date" id="date" placeholder="Votre email" name="email" />
+            <span class="error"><i class="fa-solid fa-exclamation"></i></span>
+            <div></div>
+            <small></small>
+          </div>
+          <div class="form-control">
+            <label >Type</label>
+              <select name="type" id="type" >
+                <option value="" disabled selected>choisir..</option>
+                <option value="Féminin">Féminin</option>
+                <option value="Masculin">Masculin</option>
+              </select>
+              <span class="error"><i class="fa-solid fa-exclamation"></i></span>
+              <div></div>
+              <small></small>
+          </div>
+          <div class="form-control">
+              <h4>Est en promotion</h4>
+            <div>
+              <label><input type="radio" name="groupe" id="1" value="DW101" />OUI </label>
+              <label><input type="radio" name="groupe" id="2" value="DW102"/>NOM </label>
+            </div>
+            <span class="error"><i class="fa-solid fa-exclamation"></i></span>
+            <small></small>
+        </div>
+        <button type="submit">Inscrire</button>
+    </form>
+    <section>
+        <table class="table table-image">
+            <thead class="thead-dark">
+              <tr class="text-center">
+                <th>pic</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <!-- Table body with the list of products -->
+            <tbody id="productList">
+            </tbody>
+          </table>
+    </section>
+</body>
+</html>
