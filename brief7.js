@@ -5,13 +5,16 @@ const date=document.getElementById("date")
 const type=document.getElementById("type")
 const promotion=document.getElementsByName("promotion")
 var btn=document.getElementById("ajouter")
+let count=0
+
 
 btn.addEventListener('click',click)
 function click() {
     if(nom.value === "")
     {
         setError(nom,"champ obligatoire")
-        console.log("howa")
+        nom.focus()
+        return false;
     }
     else
     {
@@ -20,7 +23,9 @@ function click() {
     if(marque.value === "")
     {
         setError(marque,"champ obligatoire")
-        console.log("howa")
+        marque.focus();
+        return false;
+
     }
     else
     {
@@ -29,7 +34,10 @@ function click() {
     if(prix.value === "")
     {
         setError(prix,"champ obligatoire")
-        console.log("howa")
+        prix.focus();
+        return false;
+
+
     }
     else
     {
@@ -38,7 +46,8 @@ function click() {
     if(date.value === "")
     {
         setError(date,"champ obligatoire")
-        console.log("howa")
+        date.focus()
+        return false;
     }
     else
     {
@@ -46,8 +55,9 @@ function click() {
     }
     if(type.selectedIndex< 1)
     {
-        setError(type,"champ obligatoire")
-        console.log("howa")
+        setError(type,"champ obligatoire");
+        date.focus()
+        return false;
     }
     else
     {
@@ -57,15 +67,15 @@ function click() {
         if(promotion[i].checked)
         {
             setsucces(promotion[i])
-            console.log("howa")
             break;
         }
         else
         {
             setError(promotion[i],"champ obligatoire")
         }
-        
     }
+    count++;
+    add()
 }
 function setError(input,message)
 {
@@ -83,7 +93,92 @@ function setsucces(input)
     if(formcontrol.classList.contains("form-control-error"))
     {formcontrol.classList.remove("form-control-error")
     }formcontrol.classList.add("form-control-succes")
-    console.log(formcontrol.className)
     small.textContent=" ";
 }
+function getpromo(listpromo)
+{
+    for (let i = 0; i < listpromo.length; i++) {
+        if(listpromo[i].checked)
+        {
+            return listpromo[i].value;
+        }
+    }
+}
 
+function createremove() {
+    var dele=document.createElement('input')
+    dele.setAttribute('type','button')
+    dele.setAttribute('value','remove')
+    dele.setAttribute('id','remove'+count)
+    return dele
+}
+function createremove(parentele) {
+    var dele=document.createElement('input')
+    dele.setAttribute('type','button')
+    dele.setAttribute('id','remove'+count)
+    return dele
+}
+function productDelete(product) {
+    product.closest("tr").remove();
+}
+function productUpdate(product) {
+    var row=product.closest("tr");
+    var cols= row.querySelectorAll("td")
+    let tabl=new Array();
+    cols.forEach(ele => {
+        tabl.push(ele.innerHTML)
+    });
+    console.log(tabl);
+    nom.value=tabl[0];
+    marque.value=tabl[1];
+    prix.value=tabl[2];
+    date.value=tabl[3];
+    type.value=tabl[4];
+    for (let i = 0; i < promotion.length; i++) 
+    {
+
+    }
+    prix.value=tabl[1];
+
+    
+
+    // nom.value=cols[1].innerText;
+
+    
+}
+function add()
+{
+    var tableau=document.getElementById("productList");
+    let product= [nom.value,marque.value,prix.value,date.value,type.value,getpromo(promotion),`<button id="remove${count}" onclick='productDelete(this);' ><i class="fa-solid fa-trash"></i></button><button id="update${count}" onclick='productUpdate(this);'><i class="fa-solid fa-pen-to-square"></i></button>`]
+    console.log(product)
+    var column=document.createElement('tr')
+    column.setAttribute('id','tr'+count)
+    tableau.appendChild(column)
+    console.log(column)
+    console.log(count);
+    console.log(tableau)
+    for (let i = 0; i < product.length; i++) {
+        var column1=document.getElementById('tr'+count)
+        var row=document.createElement('td')
+        row.setAttribute('id','td'+ count +i);
+        column1.appendChild(row);
+        var contenu=document.getElementById('td'+count+i);
+        contenu.innerHTML=product[i]
+    }
+    console.log(column)
+    console.log(count);
+    console.log(tableau)
+}
+function onlynumber()
+{
+     if(prix.value.match(/^\d+([,.]?\d+$)?/))
+    {
+        setsucces(prix);
+    }
+    else
+    {
+        setError(prix,"must be a number")
+        prix.focus();
+        return false
+    }
+}

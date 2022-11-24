@@ -90,10 +90,10 @@ th {
 }
 
 .table {
-    background-color: #392725;
+    background-color: #e4dbda;
     width: 100%;
     border-collapse: collapse;
-    color: blanchedalmond;
+    color: #392725;
 }
 
 
@@ -104,4 +104,6 @@ th {
     }
 
 }
+#update #remove 
+{background-color: aliceblue;}
 
