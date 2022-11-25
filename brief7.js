@@ -1,3 +1,4 @@
+const form=document.getElementById("form")
 const nom=document.getElementById("nom")
 const marque=document.getElementById("marque")
 const prix=document.getElementById("prix")
@@ -6,10 +7,20 @@ const type=document.getElementById("type")
 const promotion=document.getElementsByName("promotion")
 var btn=document.getElementById("ajouter")
 let count=0
-
-
-btn.addEventListener('click',click)
-function click() {
+let idupdate
+if(btn.value='Ajouter')
+{
+    btn.addEventListener('click',Addproduct())
+}
+else if(btn.value='Modifier')
+{
+    btn.addEventListener('click',UPDproduct())
+}
+function UPDproduct()
+{
+    console.log(idupdate)
+}
+function Addproduct() {
     if(nom.value === "")
     {
         setError(nom,"champ obligatoire")
@@ -25,7 +36,6 @@ function click() {
         setError(marque,"champ obligatoire")
         marque.focus();
         return false;
-
     }
     else
     {
@@ -36,8 +46,6 @@ function click() {
         setError(prix,"champ obligatoire")
         prix.focus();
         return false;
-
-
     }
     else
     {
@@ -105,19 +113,6 @@ function getpromo(listpromo)
     }
 }
 
-function createremove() {
-    var dele=document.createElement('input')
-    dele.setAttribute('type','button')
-    dele.setAttribute('value','remove')
-    dele.setAttribute('id','remove'+count)
-    return dele
-}
-function createremove(parentele) {
-    var dele=document.createElement('input')
-    dele.setAttribute('type','button')
-    dele.setAttribute('id','remove'+count)
-    return dele
-}
 function productDelete(product) {
     product.closest("tr").remove();
 }
@@ -136,15 +131,31 @@ function productUpdate(product) {
     type.value=tabl[4];
     for (let i = 0; i < promotion.length; i++) 
     {
-
+        if(promotion[i].value==tabl[5])
+        {
+            console.log(promotion[i].value)
+            promotion[i].checked=true
+        }
     }
-    prix.value=tabl[1];
-
-    
-
-    // nom.value=cols[1].innerText;
-
-    
+    btn.value="Modifier";
+    idupdate= product.closest('tr');
+}
+function clearinput() {
+    nom.value=" "
+    marque.value = " "
+    prix.value = " "
+    date.value = " "
+    type.value = " "
+    for (let i = 0; i < promotion.length; i++) {
+        console.log(promotion[i].value)
+        promotion[i].checked = false
+    }
+    var formcontrol = form.querySelectorAll('.form-control')
+    formcontrol.forEach(ele => {
+        if (ele.classList.contains("form-control-succes")) {
+            ele.classList.remove("form-control-succes")
+        }
+    });
 }
 function add()
 {
@@ -154,9 +165,6 @@ function add()
     var column=document.createElement('tr')
     column.setAttribute('id','tr'+count)
     tableau.appendChild(column)
-    console.log(column)
-    console.log(count);
-    console.log(tableau)
     for (let i = 0; i < product.length; i++) {
         var column1=document.getElementById('tr'+count)
         var row=document.createElement('td')
@@ -168,10 +176,11 @@ function add()
     console.log(column)
     console.log(count);
     console.log(tableau)
+    clearinput()
 }
 function onlynumber()
 {
-     if(prix.value.match(/^\d+([,.]?\d+$)?/))
+    if(prix.value.match(/^\d+([,.]?\d+$)?/))
     {
         setsucces(prix);
     }
@@ -182,3 +191,17 @@ function onlynumber()
         return false
     }
 }
+
+// function createremove() {
+//     var dele=document.createElement('input')
+//     dele.setAttribute('type','button')
+//     dele.setAttribute('value','remove')
+//     dele.setAttribute('id','remove'+count)
+//     return dele
+// }
+// function createremove(parentele) {
+//     var dele=document.createElement('input')
+//     dele.setAttribute('type','button')
+//     dele.setAttribute('id','remove'+count)
+//     return dele
+// }

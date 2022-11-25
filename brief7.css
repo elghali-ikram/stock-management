@@ -12,10 +12,9 @@ body {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    padding: 5%;
+    padding: 3%;
     margin: 0;
 }
-
 form {
     display: grid;
     grid-template-rows: repeat(6, auto);
@@ -25,7 +24,6 @@ form {
     border-left: 5px solid black;
     padding: 20px;
 }
-
 form input,
 form select {
     outline: none;
@@ -33,13 +31,11 @@ form select {
     border-radius: 5px;
     background-color: aliceblue;
 }
-
 .form-control {
     display: grid;
     grid-template-columns: 100px auto;
     position: relative;
 }
-
 form input[type="button"] {
     background-color:#392725;
     color: aliceblue;
@@ -51,19 +47,16 @@ form input[type="button"] {
     font-size: 20px;
     margin-top: 10px;
 }
-
 h1 {
     font-weight: 400;
     font-size: 40px;
 }
-
 .icon {
     padding: 38px;
     display: grid;
     grid-template-columns: repeat(3, 20px);
     column-gap: 20px;
 }
-
 small {
     color: red;
 }
