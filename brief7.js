@@ -9,61 +9,6 @@ var btn = document.getElementById("ajouter");
 let count = 0;
 let idproduct;
 btn.addEventListener("click", checkproduct);
-function checkinputs() {
-  if (nom.value === "") {
-    setError(nom, "champ obligatoire");
-    nom.focus();
-    return false;
-  } else {
-    setsucces(nom);
-  }
-  if (marque.value === "") {
-    setError(marque, "champ obligatoire");
-    marque.focus();
-    return false;
-  } else {
-    setsucces(marque);
-  }
-  if (prix.value === "") {
-    setError(prix, "champ obligatoire");
-    prix.focus();
-    return false;
-  } else {
-    setsucces(prix);
-  }
-  if (date.value === "") {
-    setError(date, "champ obligatoire");
-    date.focus();
-    return false;
-  } else {
-    setsucces(date);
-  }
-  if (type.selectedIndex < 1) {
-    setError(type, "champ obligatoire");
-    date.focus();
-    return false;
-  } else {
-    setsucces(type);
-  }
-  for (let i = 0; i < promotion.length; i++) {
-    if (promotion[i].checked) {
-      setsucces(promotion[i]);
-      break;
-    } else {
-      setError(promotion[i], "champ obligatoire");
-    }
-  }
-}
-function isFormValid() {
-  const inputContainers = form.querySelectorAll(".form-control");
-  let result = true;
-  inputContainers.forEach((container) => {
-    if (container.classList.contains("form-control-error")) {
-      result = false;
-    }
-  });
-  return result;
-}
 function checkproduct() {
   if (btn.value === "AJOUTER") {
     checkinputs();
@@ -82,6 +27,86 @@ function checkproduct() {
     }
   }
 }
+// function validinput(input,regex,message)
+// {
+//     regex.test(input.value)==true ? (setsucces(input)):(setError(input,message),input.focus())
+// }
+function validinput(input,regex,message)
+{
+  if (regex.test(input.value)) {
+    setsucces(input);
+
+  } else {
+    setError(input, message);
+    input.focus();
+    return false;
+  }
+}
+nom.addEventListener('input',function(){
+    validinput(nom,/^(^[a-z]+['-\s]?[a-z]+)$/gi,"champ no valid")
+})
+marque.addEventListener('input',function(){
+    validinput(marque,/^(^[a-z]+['-\s]?[a-z]+)$/gi,"champ no valid")
+})
+prix.addEventListener('input',function(){
+    validinput(prix, /^(^\d+([,.]?\d+$)?)$/gi,"champ no valid")
+})
+type.addEventListener('input',function(){
+  if (type.selectedIndex < 1) {
+    setError(type, "champ obligatoire");
+    date.focus();
+    return false;
+  } else {
+    setsucces(type);
+  }
+})
+date.addEventListener('input',function(){
+  const date1 = new Date();
+  let day = date1.getDate();
+  let month = date1.getMonth() + 1;
+  let year = date1.getFullYear();
+  var regex1= new RegExp(`${year}-${month}-${day}`)
+  regex1.test(date.value)==true ? setsucces(date) :setError(date,"champ no valid")
+
+  // validinput(date,`${year}-${month}-${day}`,"champ no valid")
+})
+function checkinputs() {
+  validinput(nom,/^(^[a-z]+['-\s]?[a-z]+)$/gi,"champ no valid")
+  validinput(marque,/^(^[a-z]+['-\s]?[a-z]+)$/gi,"champ no valid")
+  validinput(prix, /^(^\d+([,.]?\d+$)?)$/gi,"champ no valid")
+
+  const date1 = new Date();
+  let day = date1.getDate();
+  let month = date1.getMonth() + 1;
+  let year = date1.getFullYear();
+  var regex1= new RegExp(`${year}-${month}-${day}`)
+  regex1.test(date.value)==true ? setsucces(date) :setError(date,"champ no valid")
+  if (type.selectedIndex < 1) {
+    setError(type, "champ obligatoire");
+  } else {
+    setsucces(type);
+  }
+  for (let i = 0; i < promotion.length; i++) {
+    if (promotion[i].checked) {
+      setsucces(promotion[i]);
+      break;
+    } else {
+      setError(promotion[i], "champ obligatoire");
+      console.log("hik");
+    }
+  }
+}
+function isFormValid() {
+  const inputContainers = form.querySelectorAll(".form-control");
+  let result = true;
+  inputContainers.forEach((container) => {
+    if (container.classList.contains("form-control-error")) {
+      result = false;
+    }
+  });
+  return result;
+}
+
 function setError(input, message) {
   var formcontrol = input.closest(".form-control");
   var small = formcontrol.querySelector("small");
@@ -108,9 +133,7 @@ function getpromo(listpromo) {
   }
 }
 
-function productDelete(product) {
-  product.closest("tr").remove();
-}
+
 function productUpdate(product) {
   var row = product.closest("tr");
   var cols = row.querySelectorAll("td");
@@ -159,7 +182,7 @@ function clearinput() {
 }
 function add() {
   var tableau = document.getElementById("productList");
-  let product = [nom.value,marque.value,prix.value,date.value,type.value,getpromo(promotion),`<button id="remove${count}" onclick='productDelete(this);' ><i class="fa-solid fa-trash"></i></button><button id="update${count}" onclick='productUpdate(this);'><i class="fa-solid fa-pen-to-square"></i></button>`,];
+  let product = [nom.value,marque.value,prix.value,date.value,type.value,getpromo(promotion),`<button id="remove${count}" onclick='confirmationdelete(this);' ><i class="fa-solid fa-trash"></i></button><button id="update${count}" onclick='productUpdate(this);'><i class="fa-solid fa-pen-to-square"></i></button>`,];
   console.log(product);
   var column = document.createElement("tr");
   column.setAttribute("id", "tr" + count);
@@ -174,31 +197,38 @@ function add() {
   }
   clearinput();
 }
-
-function validinput(input,regex,message)
-{
-    regex.test(input.value)==true ? setsucces(input) :setError(input,message)
-    // if(regex.test(input.value)==true)
-    // {
-    //     setsucces(input)
-    // }
-    // else
-    // {
-    //     setError(input,message)
-    // }
+const modal = document.querySelector(".modal");
+const closeButton = document.querySelector("#cancel");
+const deletButton = document.querySelector("#delete");
+let getrow
+function confirmationdelete(product) {
+  getrow=product.closest("tr")
+  console.log(getrow)
+    console.log("dkhel")
+    if (modal.classList.contains("close-modal"))
+    {
+      modal.classList.remove("close-modal");
+    }
+      modal.classList.add("show-modal");
+  
 }
-let today = new Date().toLocaleDateString()
-nom.addEventListener('input',function(){
-    validinput(nom,/^(^[a-z]+['-\s]?[a-z]+)$/gi,"champ no valid")
-})
-marque.addEventListener('input',function(){
-    validinput(marque,/^(^[a-z]+['-\s]?[a-z]+)$/gi,"champ no valid")
-})
-prix.addEventListener('input',function(){
-    validinput(prix, /^(^\d+([,.]?\d+$)?)$/gi,"champ no valid")
-})
-date.addEventListener('input',function(){
-    let today = new Date().toLocaleDateString()
-    console.log(today);
-    validinput(date,`/^${today}$/`,"champ no valid")
-})
+function deleteproduct()
+{
+    getrow.remove();
+    closeModal();
+
+}
+
+function closeModal() {
+  console.log("sado")
+  if (modal.classList.contains("show-modal"))
+  {
+    modal.classList.remove("show-modal");
+  }
+    modal.classList.add("close-modal");
+}
+
+closeButton.addEventListener("click", closeModal);
+deletButton.addEventListener("click", deleteproduct);
+
+

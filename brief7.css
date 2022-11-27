@@ -15,6 +15,7 @@ body {
     padding: 3%;
     margin: 0;
 }
+/* form */
 form {
     display: grid;
     grid-template-rows: repeat(6, auto);
@@ -68,6 +69,7 @@ small {
 .form-control-error input ,.form-control-error select{
     border: 3px solid rgb(244, 42, 42);
 }
+/* table products */
 .products
 {
     padding: 10px;
@@ -88,8 +90,10 @@ th {
     border-collapse: collapse;
     color: #392725;
 }
+#update #remove 
+{background-color: aliceblue;}
 
-
+/* media */
 @media only screen and (max-width: 600px) {
     body {
         display: grid;
@@ -97,6 +101,51 @@ th {
     }
 
 }
-#update #remove 
-{background-color: aliceblue;}
 
+
+
+/* modal */
+.modal
+{
+    display: none;
+    position: fixed; 
+    left: 30%;
+    top: 30%;
+    width: 35%; /* Full width */
+    height: 40%; /* Full height */
+    background-color: #e8eaee;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+.buttons
+{
+    display: grid;
+    grid-template: auto/repeat(2, 1fr);
+    gap: 10px;
+
+
+}
+#cancel ,#delete
+{
+    background-color:#392725;
+    color: aliceblue;
+    border: none;
+    padding: 5px;
+    width: 100%;
+    border-radius: 10px;
+    font-size: 20px;
+    
+}
+#delete
+{
+    background-color: red;
+}
+.show-modal
+{
+    display: block;
+}
+.close-modal
+{
+    display: none;
+}
