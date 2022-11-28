@@ -4,7 +4,6 @@
     box-sizing: border-box;
     font-family: 'changa';
 }
-
 body {
     display: grid;
     grid-template: auto/repeat(2, 1fr);
@@ -25,12 +24,16 @@ form {
     border-left: 5px solid black;
     padding: 20px;
 }
+label
+{
+    font-weight: 600;
+}
 form input,
 form select {
     outline: none;
     border: 1px solid gray;
     border-radius: 5px;
-    background-color: aliceblue;
+    background-color: #e4dbda;
 }
 .form-control {
     display: grid;
@@ -39,29 +42,22 @@ form select {
 }
 form input[type="button"] {
     background-color:#392725;
-    color: aliceblue;
+    color: #e4dbda;
     border: none;
     padding: 5px;
     width: 30%;
     margin-left: 30%;
     border-radius: 10px;
-    font-size: 20px;
+    font-size: 1.5rem;
     margin-top: 10px;
 }
 h1 {
     font-weight: 400;
-    font-size: 40px;
-}
-.icon {
-    padding: 38px;
-    display: grid;
-    grid-template-columns: repeat(3, 20px);
-    column-gap: 20px;
+    font-size: 4rem;
 }
 small {
     color: red;
 }
-
 .form-control-succes input ,.form-control-succes select{
     border: 3px solid rgb(13, 245, 32);
 }
@@ -77,13 +73,11 @@ small {
     border-radius: 10px;
     border-left: 5px solid black;
 }
-
 table,
 td,
 th {
     border: 1px solid #392725 ;
 }
-
 .table {
     background-color: #e4dbda;
     width: 100%;
@@ -93,38 +87,43 @@ th {
 #update #remove 
 {background-color: aliceblue;}
 
-/* media */
-@media only screen and (max-width: 600px) {
-    body {
-        display: grid;
-        grid-template: repeat(2, 1fr 2fr)/ auto;
-    }
-
-}
-
-
-
 /* modal */
 .modal
 {
     display: none;
     position: fixed; 
-    left: 30%;
-    top: 30%;
-    width: 35%; /* Full width */
-    height: 40%; /* Full height */
-    background-color: #e8eaee;
-    padding: 20px;
-    border-radius: 10px;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%; 
+    height: 100%; 
+    padding: 10%;
+    background-color: rgba(0, 0, 0, 0);
     text-align: center;
+}
+h2
+{
+    font-size: 2rem;
+}
+p
+{
+    font-size: 1rem;
+}
+.modal-content
+{
+    background-color: #e4dbda;
+    position: absolute;
+    width: 40%;
+    height: 40%;
+    left: 30%;
+    border-radius: 10px;
 }
 .buttons
 {
     display: grid;
     grid-template: auto/repeat(2, 1fr);
     gap: 10px;
-
-
 }
 #cancel ,#delete
 {
@@ -134,7 +133,7 @@ th {
     padding: 5px;
     width: 100%;
     border-radius: 10px;
-    font-size: 20px;
+    font-size: 1rem;
     
 }
 #delete
@@ -148,4 +147,22 @@ th {
 .close-modal
 {
     display: none;
+}
+
+/* media */
+@media only screen and (max-width: 600px) {
+    body {
+        display: grid;
+        grid-template: repeat(2, 1fr 2fr)/ auto;
+    }
+    
+    html {
+        font-size: 10px;
+    }
+    
+    .modal-content {
+        width: 40%;
+        height: 50%;
+    }
+    
 }

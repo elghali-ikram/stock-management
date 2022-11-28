@@ -65,8 +65,11 @@
   </form>
 <div class="modal">
     <div class="modal-content">
-        <h1>Delete Product</h1>
+      <div class="modal-text">
+        <h2>Delete Product</h2>
         <p>Are you sure you want to delete product</p>
+      </div>
+
         <div class="buttons">
           <input type="button" value="Cancel" id="cancel" >
           <input type="button" value="Delete" id="delete" >
@@ -74,6 +77,8 @@
     </div>
 </div>
   <section class="products">
+    <input type="text" id="search" >
+    <input type="button" value="search" id="btnsearch">
     <table class="table">
       <thead class="thead-dark">
         <tr class="text-center">
