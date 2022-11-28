@@ -7,7 +7,7 @@
 body {
     display: grid;
     grid-template: auto/repeat(2, 1fr);
-    background-image: url(_\ \(1\).jpeg);
+    background-image: url(bacc.jpeg);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -40,7 +40,8 @@ form select {
     grid-template-columns: 100px auto;
     position: relative;
 }
-form input[type="button"] {
+form input[type="button"] 
+{
     background-color:#392725;
     color: #e4dbda;
     border: none;
@@ -73,6 +74,13 @@ small {
     border-radius: 10px;
     border-left: 5px solid black;
 }
+.products input
+{
+    outline: none;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: #e4dbda;
+}
 table,
 td,
 th {
@@ -86,7 +94,6 @@ th {
 }
 #update #remove 
 {background-color: aliceblue;}
-
 /* modal */
 .modal
 {
@@ -149,7 +156,6 @@ p
 {
     display: none;
 }
-
 /* media */
 @media only screen and (max-width: 600px) {
     body {

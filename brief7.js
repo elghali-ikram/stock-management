@@ -14,20 +14,21 @@ let getrow
 let count = 0;
 let idproduct;
 var btnsearch = document.getElementById("btnsearch");
-btnsearch.addEventListener('click',function(){
-  const tr=tableau.querySelectorAll("tr")
-  let tablsearch=[]
-  console.log(tr)
-  tr.forEach(ele => {
-    console.log(ele.innerHTML);
-    // tablsearch.push(ele.innerHTML)
-    // console.log(tablsearch)
-    
-  });
+var inputsearch = document.getElementById("search");
+btnsearch.addEventListener('click', function () {
+  const tr = tableau.querySelectorAll("tr")
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td.innerHTML == inputsearch.value) {
+      console.log("mzian 3lik");
+      alert('find')
+    }
+    else {
+      alert("don't find it")
+
+    }
+  }
 })
-
-
-
 btn.addEventListener("click", checkproduct);
 function checkproduct() {
   if (btn.value === "AJOUTER") {
@@ -38,7 +39,7 @@ function checkproduct() {
     } else {
       return true;
     }
-    } else if (btn.value === "Modifier") {
+  } else if (btn.value === "Modifier") {
     checkinputs();
     if (isFormValid() == true) {
       updatein();
@@ -47,57 +48,55 @@ function checkproduct() {
     }
   }
 }
-function validinput(input,regex,message)
-{
-    regex.test(input.value)==true ? (setsucces(input)):(setError(input,message),input.focus())
+function validinput(input, regex, message) {
+  regex.test(input.value) == true ? (setsucces(input)) : (setError(input, message), input.focus())
 }
-// function validinput(input,regex,message)
-// {
-//   if (regex.test(input.value)) {
-//     setsucces(input);
-//   } else {
-//     setError(input, message);
-//     input.focus();
-//     return false;
-//   }
-// }
-nom.addEventListener('input',function(){
-    validinput(nom,/^(^[a-z]+['-\s]?[a-z]+)$/gi,"champ no valid")
+function checkdate()
+{
+  const today = new Date();
+  const date1=new Date(date.value)
+  console.log(date1);
+  if(date.value =="")
+  {
+    setError(date,"champ no valid")
+  }
+  else{
+    if(today < date1 )
+    {
+      setError(date,"champ no valid")
+    }
+    else
+    {
+      setsucces(date)
+    }
+  }
+}
+
+nom.addEventListener('input', function () {
+  validinput(nom, /^(^[a-z]+['-\s]?[a-z]+)$/gi, "champ no valid")
 })
-marque.addEventListener('input',function(){
-    validinput(marque,/^(^[a-z]+['-\s]?[a-z]+)$/gi,"champ no valid")
+marque.addEventListener('input', function () {
+  validinput(marque, /^(^[a-z]+['-\s]?[a-z]+)$/gi, "champ no valid")
 })
-prix.addEventListener('input',function(){
-    validinput(prix, /^(^\d+([,.]?\d+$)?)$/gi,"champ no valid")
+prix.addEventListener('input', function () {
+  validinput(prix, /^(^\d+([,.]?\d+$)?)$/gi, "champ no valid")
 })
-type.addEventListener('input',function(){
+type.addEventListener('input', function () {
   if (type.selectedIndex < 1) {
     setError(type, "champ obligatoire");
   } else {
     setsucces(type);
   }
 })
-date.addEventListener('input',function(){
-  const date1 = new Date();
-  let day = date1.getDate();
-  let month = date1.getMonth() + 1;
-  let year = date1.getFullYear();
-  var regex1= new RegExp(`${year}-${month}-${day}`)
-  regex1.test(date.value)==true ? setsucces(date) :setError(date,"champ no valid")
-  // validinput(date,`${year}-${month}-${day}`,"champ no valid")
+date.addEventListener('input', function () {
+ checkdate()
 })
 function checkinputs() {
-  validinput(nom,/^(^[a-z]+['-\s]?[a-z]+)$/gi,"champ no valid")
-  validinput(marque,/^(^[a-z]+['-\s]?[a-z]+)$/gi,"champ no valid")
-  validinput(prix, /^(^\d+([,.]?\d+$)?)$/gi,"champ no valid")
-
-  const date1 = new Date();
-  let day = date1.getDate();
-  let month = date1.getMonth() + 1;
-  let year = date1.getFullYear();
-  var regex1= new RegExp(`${year}-${month}-${day}`)
-  regex1.test(date.value)==true ? setsucces(date) :setError(date,"champ no valid")
-  if (type.selectedIndex < 1) {
+  validinput(nom, /^(^[a-z]+['-\s]?[a-z]+)$/, "champ no valid")
+  validinput(marque, /^(^[a-z]+['-\s]?[a-z]+)$/, "champ no valid")
+  validinput(prix, /^(^\d+([,.]?\d+$)?)$/, "champ no valid")
+  checkdate()
+   if (type.selectedIndex < 1) {
     setError(type, "champ obligatoire");
   } else {
     setsucces(type);
@@ -108,7 +107,6 @@ function checkinputs() {
       break;
     } else {
       setError(promotion[i], "champ obligatoire");
-      console.log("hik");
     }
   }
 }
@@ -122,7 +120,6 @@ function isFormValid() {
   });
   return result;
 }
-
 function setError(input, message) {
   var formcontrol = input.closest(".form-control");
   var small = formcontrol.querySelector("small");
@@ -166,12 +163,10 @@ function productUpdate(product) {
   idproduct = row;
 }
 function updatein() {
-  console.log("dkhelti iwa bdl");
   var cols = idproduct.querySelectorAll("td");
-  let tabl1 = [nom.value,marque.value,prix.value,date.value,type.value,getpromo(promotion),`<button id="remove${count}" onclick='confirmationdelete(this)' ><i class="fa-solid fa-trash"></i></button><button id="update${count}" onclick='productUpdate(this)'><i class="fa-solid fa-pen-to-square"></i></button>`];
+  let tabl1 = [nom.value, marque.value, prix.value, date.value, type.value, getpromo(promotion), `<button id="remove${count}" onclick='confirmationdelete(this)' ><i class="fa-solid fa-trash"></i></button><button id="update${count}" onclick='productUpdate(this)'><i class="fa-solid fa-pen-to-square"></i></button>`];
   console.log(tabl1);
-  for (let i = 0; i < tabl1.length; i++) 
-  {
+  for (let i = 0; i < tabl1.length; i++) {
     cols[i].innerHTML = tabl1[i];
   }
   clearinput();
@@ -188,15 +183,13 @@ function clearinput() {
   }
   var formcontrol = form.querySelectorAll(".form-control");
   formcontrol.forEach((ele) => {
-    if (ele.classList.contains("form-control-succes"))
-    {
+    if (ele.classList.contains("form-control-succes")) {
       ele.classList.remove("form-control-succes");
     }
   });
 }
 function add() {
-  let product = [nom.value,marque.value,prix.value,date.value,type.value,getpromo(promotion),`<button id="remove${count}" onclick='confirmationdelete(this);' ><i class="fa-solid fa-trash"></i></button><button id="update${count}" onclick='productUpdate(this);'><i class="fa-solid fa-pen-to-square"></i></button>`,];
-  console.log(product);
+  let product = [nom.value, marque.value, prix.value, date.value, type.value, getpromo(promotion), `<button id="remove${count}" onclick='confirmationdelete(this);' ><i class="fa-solid fa-trash"></i></button><button id="update${count}" onclick='productUpdate(this);'><i class="fa-solid fa-pen-to-square"></i></button>`,];
   var column = document.createElement("tr");
   column.setAttribute("id", "tr" + count);
   tableau.appendChild(column);
@@ -210,34 +203,23 @@ function add() {
   }
   clearinput();
 }
-
 function confirmationdelete(product) {
-  getrow=product.closest("tr")
-  console.log(getrow)
-    console.log("dkhel")
-    if (modal.classList.contains("close-modal"))
-    {
-      modal.classList.remove("close-modal");
-    }
-      modal.classList.add("show-modal");
-  
+  getrow = product.closest("tr")
+  if (modal.classList.contains("close-modal")) {
+    modal.classList.remove("close-modal");
+  }
+  modal.classList.add("show-modal");
 }
-function deleteproduct()
-{
-    getrow.remove();
-    closeModal();
-
+function deleteproduct() {
+  getrow.remove();
+  closeModal();
 }
-
 function closeModal() {
-  console.log("sado")
-  if (modal.classList.contains("show-modal"))
-  {
+  if (modal.classList.contains("show-modal")) {
     modal.classList.remove("show-modal");
   }
-    modal.classList.add("close-modal");
+  modal.classList.add("close-modal");
 }
-
 closeButton.addEventListener("click", closeModal);
 deletButton.addEventListener("click", deleteproduct);
 
