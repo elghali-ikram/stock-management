@@ -168,7 +168,7 @@ function productUpdate(product) {
 function updatein() {
   console.log("dkhelti iwa bdl");
   var cols = idproduct.querySelectorAll("td");
-  let tabl1 = [nom.value,marque.value,prix.value,date.value,type.value,getpromo(promotion),`<button id="remove${count}" onclick='productDelete(this)' ><i class="fa-solid fa-trash"></i></button><button id="update${count}" onclick='productUpdate(this)'><i class="fa-solid fa-pen-to-square"></i></button>`];
+  let tabl1 = [nom.value,marque.value,prix.value,date.value,type.value,getpromo(promotion),`<button id="remove${count}" onclick='confirmationdelete(this)' ><i class="fa-solid fa-trash"></i></button><button id="update${count}" onclick='productUpdate(this)'><i class="fa-solid fa-pen-to-square"></i></button>`];
   console.log(tabl1);
   for (let i = 0; i < tabl1.length; i++) 
   {
@@ -239,7 +239,6 @@ function closeModal() {
 }
 
 closeButton.addEventListener("click", closeModal);
-window.addEventListener("click", closeModal);
 deletButton.addEventListener("click", deleteproduct);
 
 
